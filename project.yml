@@ -1,0 +1,81 @@
+name: app 
+packages:
+  Wasm:
+    path: .
+  VLC:
+    url: https://github.com/omaralbeik/VLC.git
+    exactVersion: 3.6.0
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher.git
+    from: 8.0.0
+settings:
+  CODE_SIGN_STYLE: Manual
+targets:
+  app:
+    type: application
+    platform: [iOS, macOS] 
+    deploymentTarget: "17.0"
+    configFiles:
+      Debug: Example/debug.xcconfig
+      Release: Example/release.xcconfig
+    scheme:
+      commandLineArguments:
+        "-com.apple.CoreData.SQLDebug 1": false
+        "-com.apple.CoreData.ConcurrencyDebug 1": false
+        "-com.apple.CoreData.MigrationDebug 1": false
+      environmentVariables:
+        SQLITE_ENABLE_THREAD_ASSERTIONS: 0
+        SQLITE_AUTO_TRACE: 0
+        SQLITE_ENABLE_FILE_ASSERTIONS: 0
+        WASM_ENABLE_LOGGING: 1
+      debugEnabled: false
+      testTargets:
+        - package: Wasm/MusicWasmObjCTests 
+    sources:
+      - path: Example 
+        type: group
+        excludes:
+    # preBuildScripts:
+    #   - name: Build wasm
+    #     script: |
+    #       set -eu
+    #       pushd ../rust >/dev/null
+    #       export PATH=/opt/homebrew/bin/:~/.cargo/bin:"${PATH}"
+    #       make build # feature=music
+    #       popd >/dev/null
+    #     basedOnDependencyAnalysis: true
+
+    dependencies:
+      - sdk: SwiftUI.framework
+      - package: Wasm 
+        product: AsyncWasmUI 
+        embed: true
+        codeSign: true
+      - package: Wasm 
+        product: MusicWasm 
+      - package: VLC
+        product: VLC
+      - package: Kingfisher
+        product: Kingfisher
+    settings:
+      base:
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 1.0
+        CODE_SIGN_ENTITLEMENTS: Example/Entitlements.entitlements
+        PRODUCT_NAME: "Example"
+      configs:
+        debug:
+          INFOPLIST_FILE: "Example/Info-dev.plist"
+          CODE_SIGN_IDENTITY: iPhone Developer
+          PRODUCT_BUNDLE_IDENTIFIER: app.snapai.tvcast
+          PROVISIONING_PROFILE_SPECIFIER: "tvcast-dev"
+          DEBUG_MODE: YES
+          DEVELOPMENT_TEAM: "W39V2LX6S4"
+          OTHER_LDFLAGS: "-Xlinker -interposable -Xlinker -undefined -Xlinker dynamic_lookup"
+        release:
+          INFOPLIST_FILE: "Example/Info.plist"
+          CODE_SIGN_IDENTITY: iPhone Developer
+          PRODUCT_BUNDLE_IDENTIFIER: app.snapai.tvcast
+          PROVISIONING_PROFILE_SPECIFIER: "tvcast-dev"
+          DEBUG_MODE: NO
+          DEVELOPMENT_TEAM: "W39V2LX6S4"
