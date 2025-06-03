@@ -29,8 +29,8 @@ let package = Package(
 		.singleTargetLibrary("MusicWasm"),
 		.singleTargetLibrary("TaskWasm"),
 		.singleTargetLibrary("WasmSwiftProtobuf"),
-		.singleTargetLibrary("WasmObjCProtobuf", type: .dynamic),
-		.singleTargetLibrary("MobileFFI", type: .dynamic),
+		.singleTargetLibrary("WasmObjCProtobuf"),
+		.singleTargetLibrary("MobileFFI"),
 		.singleTargetLibrary("AsyncWasmUI", type: .dynamic)
     ],
     dependencies: [

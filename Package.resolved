@@ -1,5 +1,5 @@
 {
-  "originHash" : "00d14114617fdc6f26bf2261c9302ee521836a9eb830457aa03faa3f650dbe3e",
+  "originHash" : "d0c66afeb39bd4332c39eb791e8df5fdd8f3669e0486acf1faa674781473f65f",
   "pins" : [
     {
       "identity" : "cache",
@@ -17,15 +17,6 @@
       "state" : {
         "revision" : "4b8714a7fb84d42393314ce897127b3939885ec3",
         "version" : "3.8.5"
-      }
-    },
-    {
-      "identity" : "kingfisher",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/onevcat/Kingfisher.git",
-      "state" : {
-        "revision" : "7deda23bbdca612076c5c315003d8638a08ed0f1",
-        "version" : "8.3.2"
       }
     },
     {
@@ -62,15 +53,6 @@
       "state" : {
         "revision" : "d2ba781702a1d8285419c15ee62fd734a9437ff5",
         "version" : "1.3.2"
-      }
-    },
-    {
-      "identity" : "vlc",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/omaralbeik/VLC.git",
-      "state" : {
-        "revision" : "9ff95718f4edce0368cc095a8e44fd31ddedb71a",
-        "version" : "3.6.0"
       }
     },
     {
