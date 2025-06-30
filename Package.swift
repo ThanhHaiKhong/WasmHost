@@ -14,7 +14,7 @@ let mffi_checksum = "3ba54735ff20c928fbf0fdb3a71076410b3a0499ef5e6c89f1dd3ddf645
 
 let ffiTargets: [PackageDescription.Target] = [
     .binaryTarget(name: "mffi",
-                  url: "https://wasm.sfo3.cdn.digitaloceanspaces.com/\(mffi_file_name)",
+                  url: "https://cswasm.sfo3.cdn.digitaloceanspaces.com/\(mffi_file_name)",
                   checksum: mffi_checksum),
 ]
 #endif
