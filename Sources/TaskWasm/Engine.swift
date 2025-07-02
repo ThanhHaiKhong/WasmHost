@@ -111,6 +111,7 @@ open class TaskWasmEngine: AsyncWasmEngine, TaskWasmProtocol {
         return try await cast(grpc_call(AsyncifyCommand(call: caller)))
     }
     public func actions() async throws -> WaTListActions {
+		/*
         try await storage.async.removeExpiredObjects()
         guard (try? await storage.async.objectExists(forKey: Self.cacheActionsKey)) ?? false else {
             let data = try await self.fetch_actions()
@@ -118,6 +119,7 @@ open class TaskWasmEngine: AsyncWasmEngine, TaskWasmProtocol {
             return try await cast(data)
         }
         let data = try await storage.async.object(forKey: Self.cacheActionsKey)
+		*/
         return try await cast(data)
     }
     public func actions(for id: String) async throws -> [WaTAction] {
