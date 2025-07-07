@@ -5,17 +5,14 @@ import PackageDescription
 
 #if FFI_DEBUG
 let ffiTargets: [PackageDescription.Target] = [
-    .binaryTarget(name: "mffi",
-                  path: "../../../be/apps/rsmobile/target/ios/mffi_dev.zip"),
+    .binaryTarget(name: "mffi", path: "../../../be/apps/rsmobile/target/ios/mffi_dev.zip"),
 ]
 #else
 let mffi_file_name = "mffi_music_tube_3ba54735ff20.xcframework.zip"
 let mffi_checksum = "3ba54735ff20c928fbf0fdb3a71076410b3a0499ef5e6c89f1dd3ddf6450c15b"
 
 let ffiTargets: [PackageDescription.Target] = [
-    .binaryTarget(name: "mffi",
-                  url: "https://cswasm.sfo3.cdn.digitaloceanspaces.com/\(mffi_file_name)",
-                  checksum: mffi_checksum),
+    .binaryTarget(name: "mffi", url: "https://scwasm.sfo3.cdn.digitaloceanspaces.com/\(mffi_file_name)", checksum: mffi_checksum),
 ]
 #endif
 
@@ -37,7 +34,6 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-system", .upToNextMinor(from: "1.3.0")),
         .package(url: "https://github.com/swiftwasm/WasmKit.git", from: "0.1.5"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.22.0"),
-        .package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", from: "3.8.0"),
         .package(url: "https://github.com/hyperoslo/Cache.git", from: "7.4.0")
     ],
     targets: ffiTargets + [
@@ -61,7 +57,6 @@ let package = Package(
         .target(
             name: "AsyncWasm",
             dependencies: [
-                .product(name: "CocoaLumberjackSwift", package: "CocoaLumberjack"),
                 "WasmSwiftProtobuf",
                 .target(name: "MobileFFI", condition: .when(platforms: [.iOS, .macOS])),
                 .target(name: "AsyncWasmKit", condition: .when(platforms: [.watchOS]))
@@ -86,7 +81,6 @@ let package = Package(
                 "AsyncWasm"
             ]
         ),
-        // https://github.com/protocolbuffers/protobuf/blob/main/Protobuf.podspec
         .target(
             name: "Protobuf",
             dependencies: [
@@ -124,7 +118,6 @@ let package = Package(
             name: "MobileFFI",
             dependencies: [
                 .target(name: "mffi", condition: .when(platforms: [.iOS, .macOS])),
-                "WasmSwiftProtobuf"
             ]
         ),
         .testTarget(
