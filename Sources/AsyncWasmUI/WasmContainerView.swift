@@ -9,6 +9,7 @@ import OSLog
 import SwiftUI
 import WasmSwiftProtobuf
 
+@available(macOS 12.0, iOS 15.0, watchOS 8.0, *)
 public struct WasmContainerView<ContentView: View, W: AsyncWasmProtocol>: View {
     @ObservedObject var engine: WasmEngine<W>
     @ViewBuilder var contentView: (EngineVersion) -> ContentView

@@ -9,6 +9,22 @@ import Foundation
 // this module. This is a bit of light hackery to work with both.
 #if canImport(mffiFFI)
 import mffiFFI
+#else
+// Declare FFI functions when module import fails
+@_silgen_name("ffi_mffi_uniffi_contract_version")
+func ffi_mffi_uniffi_contract_version() -> UInt32
+
+@_silgen_name("uniffi_mffi_checksum_func_mffi_log_with_max_level")
+func uniffi_mffi_checksum_func_mffi_log_with_max_level() -> UInt16
+
+@_silgen_name("ffi_mffi_rustbuffer_from_bytes")
+func ffi_mffi_rustbuffer_from_bytes(_ bytes: ForeignBytes, _ out_status: UnsafeMutablePointer<RustCallStatus>) -> RustBuffer
+
+@_silgen_name("ffi_mffi_rustbuffer_free")
+func ffi_mffi_rustbuffer_free(_ buf: RustBuffer, _ out_status: UnsafeMutablePointer<RustCallStatus>)
+
+@_silgen_name("uniffi_mffi_fn_func_mffi_log_with_max_level")
+func uniffi_mffi_fn_func_mffi_log_with_max_level(_ level: RustBuffer, _ out_status: UnsafeMutablePointer<RustCallStatus>)
 #endif
 
 fileprivate extension RustBuffer {

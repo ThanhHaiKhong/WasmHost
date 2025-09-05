@@ -204,7 +204,7 @@ import MobileCoreServices
 extension String {
     func mimeType() -> String {
         let pathExtension = self
-        if #available(iOS 15.0, *) {
+        if #available(macOS 11.0, iOS 15.0, watchOS 8.0, *) {
             if let type = UTType(filenameExtension: pathExtension) {
                 if let mimetype = type.preferredMIMEType {
                     return mimetype as String
@@ -479,8 +479,12 @@ extension AsyncifyAction.FileDescriptor {
                     let size = track.naturalSize.applying(track.preferredTransform)
                     fd.metadata.fields["resolution"] = Google_Protobuf_Value(listValue: Google_Protobuf_ListValue(values: [Google_Protobuf_Value(numberValue: size.width), Google_Protobuf_Value(numberValue: size.height)]))
                 }
-                let duration = try await asset.load(.duration)
-                fd.metadata.fields["duration"] = Google_Protobuf_Value(numberValue: duration.seconds)
+                if #available(macOS 12.0, iOS 15.0, watchOS 8.0, *) {
+                    let duration = try await asset.load(.duration)
+                    fd.metadata.fields["duration"] = Google_Protobuf_Value(numberValue: duration.seconds)
+                } else {
+                    fd.metadata.fields["duration"] = Google_Protobuf_Value(numberValue: asset.duration.seconds)
+                }
             default: break
             }
         case let .write(write):

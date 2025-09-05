@@ -19,7 +19,7 @@ let ffiTargets: [PackageDescription.Target] = [
 let package = Package(
     name: "WasmHost",
     platforms: [
-        .macOS(.v11), .iOS(.v15), .watchOS(.v8),
+		.iOS(.v15), .macOS(.v10_15), .watchOS(.v8),
     ],
     products: [
 		.singleTargetLibrary("AsyncWasm"),
@@ -46,6 +46,7 @@ let package = Package(
             ],
             resources: [
                 .copy("Resources/base.wasm"),
+                .copy("Resources/music_tube.wasm"),
             ]
         ),
         .target(
@@ -58,8 +59,9 @@ let package = Package(
             name: "AsyncWasm",
             dependencies: [
                 "WasmSwiftProtobuf",
-                .target(name: "MobileFFI", condition: .when(platforms: [.iOS, .macOS])),
-                .target(name: "AsyncWasmKit", condition: .when(platforms: [.watchOS]))
+                .target(name: "MobileFFI", condition: .when(platforms: [.iOS])),
+                .target(name: "mffi", condition: .when(platforms: [.iOS])),
+                .target(name: "AsyncWasmKit", condition: .when(platforms: [.watchOS, .macOS]))
             ]
         ),
         .target(
@@ -78,7 +80,11 @@ let package = Package(
         .target(
             name: "AsyncWasmUI",
             dependencies: [
-                "AsyncWasm"
+                "AsyncWasm",
+                .target(name: "mffi", condition: .when(platforms: [.iOS]))
+            ],
+            linkerSettings: [
+                .linkedLibrary("c++")
             ]
         ),
         .target(
@@ -117,7 +123,7 @@ let package = Package(
         .target(
             name: "MobileFFI",
             dependencies: [
-                .target(name: "mffi", condition: .when(platforms: [.iOS, .macOS])),
+                .target(name: "mffi", condition: .when(platforms: [.iOS])),
             ]
         ),
         .testTarget(
@@ -126,6 +132,7 @@ let package = Package(
                 "AsyncWasm"
             ],
             resources: [
+                .copy("Resources/base.wasm"),
                 .copy("Resources/music_tube.wasm"),
             ]
         ),
@@ -135,6 +142,7 @@ let package = Package(
                 "MusicWasm"
             ],
             resources: [
+                .copy("Resources/base.wasm"),
                 .copy("Resources/music_tube.wasm"),
             ]
         ),
@@ -146,6 +154,7 @@ let package = Package(
                 "MusicWasm"
             ],
             resources: [
+                .copy("Resources/base.wasm"),
                 .copy("Resources/music_tube.wasm"),
             ]
         )

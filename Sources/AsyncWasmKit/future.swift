@@ -59,7 +59,11 @@ WAFuture<
     index: \(self.index)
 >
 """].filter({ !$0.isEmpty })
-        os_log(.debug, log: log, "\(args.joined(separator: " "))")
+        if #available(macOS 11.0, iOS 14.0, watchOS 7.0, *) {
+            os_log(.debug, log: log, "\(args.joined(separator: " "))")
+        } else {
+            print(args.joined(separator: " "))
+        }
 #endif
         return self
     }

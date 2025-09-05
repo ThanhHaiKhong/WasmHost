@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(swift build)",
+      "Bash(swift build:*)",
+      "Bash(otool:*)",
+      "Bash(nm:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

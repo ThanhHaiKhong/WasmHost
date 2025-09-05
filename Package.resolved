@@ -1,5 +1,5 @@
 {
-  "originHash" : "d0c66afeb39bd4332c39eb791e8df5fdd8f3669e0486acf1faa674781473f65f",
+  "originHash" : "39c673f8abb495fa919cb5691f322d251368e2b9af28bedf3be7b350f17e3b15",
   "pins" : [
     {
       "identity" : "cache",
@@ -11,30 +11,12 @@
       }
     },
     {
-      "identity" : "cocoalumberjack",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
-      "state" : {
-        "revision" : "4b8714a7fb84d42393314ce897127b3939885ec3",
-        "version" : "3.8.5"
-      }
-    },
-    {
       "identity" : "swift-argument-parser",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser",
       "state" : {
         "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
         "version" : "1.5.0"
-      }
-    },
-    {
-      "identity" : "swift-log",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-log",
-      "state" : {
-        "revision" : "3d8596ed08bd13520157f0355e35caed215ffbfa",
-        "version" : "1.6.3"
       }
     },
     {
