@@ -4,7 +4,10 @@
       "Bash(swift build)",
       "Bash(swift build:*)",
       "Bash(otool:*)",
-      "Bash(nm:*)"
+      "Bash(nm:*)",
+      "Bash(swift package clean:*)",
+      "Bash(echo:*)",
+      "Bash(git reset HEAD)"
     ],
     "deny": [],
     "ask": []

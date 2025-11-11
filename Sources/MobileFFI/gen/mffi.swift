@@ -41,19 +41,18 @@ fileprivate extension RustBuffer {
     }
 
     static func from(_ ptr: UnsafeBufferPointer<UInt8>) -> RustBuffer {
-        try! rustCall { ffi_mffi_rustbuffer_from_bytes(ForeignBytes(bufferPointer: ptr), $0) }
+        #if canImport(mffiFFI)
+        let foreignBytes = mffiFFI.ForeignBytes(len: Int32(ptr.count), data: ptr.baseAddress)
+        #else
+        let foreignBytes = ForeignBytes(len: Int32(ptr.count), data: ptr.baseAddress)
+        #endif
+        return try! rustCall { ffi_mffi_rustbuffer_from_bytes(foreignBytes, $0) }
     }
 
     // Frees the buffer in place.
     // The buffer must not be used after this is called.
     func deallocate() {
         try! rustCall { ffi_mffi_rustbuffer_free(self, $0) }
-    }
-}
-
-fileprivate extension ForeignBytes {
-    init(bufferPointer: UnsafeBufferPointer<UInt8>) {
-        self.init(len: Int32(bufferPointer.count), data: bufferPointer.baseAddress)
     }
 }
 
